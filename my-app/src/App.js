@@ -15,9 +15,6 @@ function App() {
   const [details, setDetails] = useState(template);
   const [complete, setComplete] = useState(false);
 
-  const formSubmit = () => {
-    setComplete(true);
-  };
   return (
     <div>
       <div className="cardContainer">
@@ -25,14 +22,28 @@ function App() {
         <Card side="back" details={details} setDetails={setDetails} />
       </div>
       <div>
-        <Form details={details} setDetails={setDetails} />
+        {complete ? (
+          <ThankYou />
+        ) : (
+          <Form
+            details={details}
+            setDetails={setDetails}
+            setComplete={setComplete}
+          />
+        )}
       </div>
     </div>
   );
 }
 
 //main form.
-function Form() {
+function Form({ details, setDetails, setComplete }) {
+  const submission = () => {
+    //
+    //  TODO: add error handling here.
+    //
+    setComplete(true);
+  };
   return (
     <div className="form">
       <form>
@@ -58,13 +69,14 @@ function Form() {
         <input id="year" name="year" placeholder="YY" type="text" />
         <label for="cvc">CVC</label>
         <input id="cvc" name="cvc" placeholder="e.g. 123" />
+        <button onClick={submission}>Confirm</button>
       </form>
     </div>
   );
 }
 
 //component for the cards. Will show back or front based on what side prop is passed.
-function Card({ side }) {
+function Card({ side, details, setDetails }) {
   return <div></div>;
 }
 
