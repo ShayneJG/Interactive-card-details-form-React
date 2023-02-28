@@ -5,12 +5,12 @@ import { useState } from "react";
 function App() {
   const template = {
     name: "",
-    number: 0,
+    number: "",
     date: {
-      month: 0,
-      year: 0,
+      month: "",
+      year: "",
     },
-    cvc: 0,
+    cvc: "",
   };
   const [details, setDetails] = useState(template);
   const [complete, setComplete] = useState(false);
@@ -38,15 +38,30 @@ function App() {
 
 //main form.
 function Form({ details, setDetails, setComplete }) {
-  const [error, setError] = useState({
+  //default error object used to initialize and reset error checking.
+  const defaultError = {
     numError: false,
     mmError: false,
     yyError: false,
     cvcError: false,
-  });
-  const inputUpdate = (event) => {
+  };
+  //form state to manage whether or not error messages display.
+  const [error, setError] = useState(defaultError);
+  //
+  //handler functions
+  //
+  const updateHandler = (event) => {
     const { name, value } = event.target;
     setDetails({ ...details, [name]: value });
+  };
+
+  //checks for errors and sets errorstate based on errors found. Will return true or false based on whether there are errors, update the error state, and prevent submission if true.
+  const errorHandler = () => {
+    setError(defaultError);
+
+    //card number error check
+
+    //
   };
   const submission = () => {
     //
@@ -63,7 +78,7 @@ function Form({ details, setDetails, setComplete }) {
           name="name"
           placeholder="e.g. Jane Appleseed"
           type="text"
-          onChange={inputUpdate}
+          onChange={updateHandler}
         />
         <label for="number">CARD NUMBER</label>
         <input
@@ -71,16 +86,18 @@ function Form({ details, setDetails, setComplete }) {
           name="number"
           placeholder="e.g. 1234 5678 9123 0000"
           type="text"
-          onChange={inputUpdate}
+          onChange={updateHandler}
         />
-        <p className="error">Wrong format, numbers only</p>
+        <p className={error.numError ? "error" : "hidden"}>
+          Wrong format, numbers only
+        </p>
         <label for="month">EXP. DATE (MM/YY)</label>
         <input
           id="month"
           name="month"
           placeholder="MM"
           type="text"
-          onChange={inputUpdate}
+          onChange={updateHandler}
         />
         <label for="year" className="sr-only">
           year
@@ -90,17 +107,19 @@ function Form({ details, setDetails, setComplete }) {
           name="year"
           placeholder="YY"
           type="text"
-          onChange={inputUpdate}
+          onChange={updateHandler}
         />
-        <p className="error">Can't be blank</p>
+        <p className={error.mmError || error.yyError ? "error" : "hidden"}>
+          Can't be blank
+        </p>
         <label for="cvc">CVC</label>
         <input
           id="cvc"
           name="cvc"
           placeholder="e.g. 123"
-          onChange={inputUpdate}
+          onChange={updateHandler}
         />
-        <p className="error">Wrong format, numbers only</p>
+        <p className={error.cvcError ? "error" : "hidden"}>Can't be blank</p>
         <button onClick={submission}>Confirm</button>
       </form>
     </div>
