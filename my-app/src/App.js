@@ -58,16 +58,19 @@ function Form({ details, setDetails, setComplete }) {
   //checks for errors and sets errorstate based on errors found. Will return true or false based on whether there are errors, update the error state, and prevent submission if true.
   const errorHandler = () => {
     setError(defaultError);
-
+    let errorCheck = false;
     //card number error check
-
-    //
+    const regex = /^[0-9]*$/;
+    if (!regex.test(details.number)) {
+      setError({ ...error, numError: true });
+      errorCheck = true;
+    }
+    return errorCheck;
   };
   const submission = () => {
-    //
-    //  TODO: add error handling here.
-    //
-    setComplete(true);
+    if (!errorHandler()) {
+      setComplete(true);
+    }
   };
   return (
     <div className="form">
@@ -79,6 +82,7 @@ function Form({ details, setDetails, setComplete }) {
           placeholder="e.g. Jane Appleseed"
           type="text"
           onChange={updateHandler}
+          value={details.name}
         />
         <label for="number">CARD NUMBER</label>
         <input
@@ -87,6 +91,7 @@ function Form({ details, setDetails, setComplete }) {
           placeholder="e.g. 1234 5678 9123 0000"
           type="text"
           onChange={updateHandler}
+          value={details.number}
         />
         <p className={error.numError ? "error" : "hidden"}>
           Wrong format, numbers only
@@ -98,6 +103,7 @@ function Form({ details, setDetails, setComplete }) {
           placeholder="MM"
           type="text"
           onChange={updateHandler}
+          value={details.date.month}
         />
         <label for="year" className="sr-only">
           year
@@ -108,6 +114,7 @@ function Form({ details, setDetails, setComplete }) {
           placeholder="YY"
           type="text"
           onChange={updateHandler}
+          value={details.date.year}
         />
         <p className={error.mmError || error.yyError ? "error" : "hidden"}>
           Can't be blank
@@ -118,8 +125,12 @@ function Form({ details, setDetails, setComplete }) {
           name="cvc"
           placeholder="e.g. 123"
           onChange={updateHandler}
+          value={details.cvc}
         />
         <p className={error.cvcError ? "error" : "hidden"}>Can't be blank</p>
+        {/* 
+  need to over-ride default form submission.
+         */}
         <button onClick={submission}>Confirm</button>
       </form>
     </div>
