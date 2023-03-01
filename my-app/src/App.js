@@ -39,10 +39,10 @@ function App() {
 function Form({ details, setDetails, setComplete }) {
   //default error object used to initialize and reset error checking.
   const defaultError = {
-    numError: false,
-    mmError: false,
-    yyError: false,
-    cvcError: false,
+    numError: "",
+    mmError: "",
+    yyError: "",
+    cvcError: "",
   };
   //form state to manage whether or not error messages display.
   const [error, setError] = useState(defaultError);
@@ -57,7 +57,7 @@ function Form({ details, setDetails, setComplete }) {
   const submission = (event) => {
     event.preventDefault();
 
-    if (!errorHandler(setError, defaultError, details, error)) {
+    if (errorHandler(setError, defaultError, details, error)) {
       setComplete(true);
     }
   };
@@ -117,9 +117,7 @@ function Form({ details, setDetails, setComplete }) {
           value={details.cvc}
         />
         <p className={error.cvcError ? "error" : "hidden"}>Can't be blank</p>
-        {/* 
-  need to over-ride default form submission.
-         */}
+
         <button onClick={submission}>Confirm</button>
       </form>
     </div>
