@@ -67,7 +67,9 @@ function Form({ details, setDetails, setComplete }) {
     }
     return errorCheck;
   };
-  const submission = () => {
+  const submission = (event) => {
+    event.preventDefault();
+
     if (!errorHandler()) {
       setComplete(true);
     }
