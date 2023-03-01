@@ -22,20 +22,6 @@ const errorHandler = (setError, defaultError, details, error) => {
   }
 
   return true;
-
-  // switch (cardCheck(details.number)) {
-  //   case "numError": {
-  //     setError({ ...error, numError: [errorMessages.format] });
-  //     return false;
-  //   }
-  //   case "blankError": {
-  //     setError({ ...error, numError: [errorMessages.blank] });
-  //     return false;
-  //   }
-  //   default: {
-  //     return true;
-  //   }
-  // }
 };
 
 //helper functions
