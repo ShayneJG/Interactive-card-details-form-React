@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import errorHandler from "./components/errorHandler";
 //top level component
 
 function App() {
@@ -55,22 +56,10 @@ function Form({ details, setDetails, setComplete }) {
     setDetails({ ...details, [name]: value });
   };
 
-  //checks for errors and sets errorstate based on errors found. Will return true or false based on whether there are errors, update the error state, and prevent submission if true.
-  const errorHandler = () => {
-    setError(defaultError);
-    let errorCheck = false;
-    //card number error check
-    const regex = /^[0-9]*$/;
-    if (!regex.test(details.number)) {
-      setError({ ...error, numError: true });
-      errorCheck = true;
-    }
-    return errorCheck;
-  };
   const submission = (event) => {
     event.preventDefault();
 
-    if (!errorHandler()) {
+    if (!errorHandler(setError, defaultError, details, error)) {
       setComplete(true);
     }
   };
