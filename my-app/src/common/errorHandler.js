@@ -12,18 +12,30 @@ const errorHandler = (setError, defaultError, details, error) => {
     format: "Wrong format, numbers only",
   };
 
-  if (!cardError(details.number)) {
+  if (!numCheck(details.number)) {
+    setError({ ...error, numError: [errorMessages.format] });
+    return false;
+  }
+  if (details.number === "") {
+    setError({ ...error, numError: [errorMessages.blank] });
     return false;
   }
 
   return true;
-};
 
-//checks card number
-//returns true if error was found.
-const cardError = (str) => {
-  //this regex checks that there are only numbers in the string
-  return numCheck(str);
+  // switch (cardCheck(details.number)) {
+  //   case "numError": {
+  //     setError({ ...error, numError: [errorMessages.format] });
+  //     return false;
+  //   }
+  //   case "blankError": {
+  //     setError({ ...error, numError: [errorMessages.blank] });
+  //     return false;
+  //   }
+  //   default: {
+  //     return true;
+  //   }
+  // }
 };
 
 //helper functions
@@ -33,5 +45,6 @@ function numCheck(str) {
   const regex = /^[0-9]*$/;
   return regex.test(str);
 }
+//checks whether the string is blank.
 
 export default errorHandler;

@@ -82,9 +82,7 @@ function Form({ details, setDetails, setComplete }) {
           onChange={updateHandler}
           value={details.number}
         />
-        <p className={error.numError ? "error" : "hidden"}>
-          Wrong format, numbers only
-        </p>
+        <p className={error.numError ? "error" : "hidden"}>{error.numError}</p>
         <label for="month">EXP. DATE (MM/YY)</label>
         <input
           id="month"
