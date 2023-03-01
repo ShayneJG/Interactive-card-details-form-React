@@ -7,17 +7,19 @@ Each error function returns true if an error was found, which results in the err
 
 const errorHandler = (setError, details, error, defaultError) => {
   setError(defaultError);
-  let errorCheck = false;
 
-  if (numError(setError, error, details)) {
-    errorCheck = true;
+  if (
+    numError(setError, error, details) ||
+    blankError(setError, error, details)
+  ) {
+    return true;
   }
-  return errorCheck;
 };
 
 //checks card number
 //returns true if error was found.
 const numError = (setError, error, details) => {
+  //this regex checks that there are only numbers in the string
   const regex = /^[0-9]*$/;
   if (!regex.test(details.number)) {
     setError({ ...error, numError: true });
@@ -25,6 +27,26 @@ const numError = (setError, error, details) => {
   }
 };
 
-const dateError = (setError, error, details) => {};
+const blankError = (setError, error, details) => {
+  //to meet the requirements of the design, this section only checks whether or not the expiry date and cvc fields are blank.
+
+  //if nothing was entered, the strings should be empty, and thus falsy.
+  let errorFound = false;
+  if (!details.month) {
+    setError({ ...error, mmError: true });
+    errorFound = true;
+  }
+
+  if (!details.year) {
+    setError({ ...error, yyError: true });
+    errorFound = true;
+  }
+
+  if (!details.cvc) {
+    setError({ ...error, cvcError: true });
+    errorFound = true;
+  }
+  return errorFound;
+};
 
 export default errorHandler;

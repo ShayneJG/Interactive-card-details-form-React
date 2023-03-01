@@ -7,10 +7,8 @@ function App() {
   const template = {
     name: "",
     number: "",
-    date: {
-      month: "",
-      year: "",
-    },
+    month: "",
+    year: "",
     cvc: "",
   };
   const [details, setDetails] = useState(template);
@@ -94,7 +92,7 @@ function Form({ details, setDetails, setComplete }) {
           placeholder="MM"
           type="text"
           onChange={updateHandler}
-          value={details.date.month}
+          value={details.month}
         />
         <label for="year" className="sr-only">
           year
@@ -105,7 +103,7 @@ function Form({ details, setDetails, setComplete }) {
           placeholder="YY"
           type="text"
           onChange={updateHandler}
-          value={details.date.year}
+          value={details.year}
         />
         <p className={error.mmError || error.yyError ? "error" : "hidden"}>
           Can't be blank
