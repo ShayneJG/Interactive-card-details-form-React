@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import errorHandler from "./common/errorHandler";
+
 //top level component
 
 function App() {
@@ -15,21 +16,27 @@ function App() {
   const [complete, setComplete] = useState(false);
 
   return (
-    <div>
-      <div className="cardContainer">
-        <Card side="front" details={details} setDetails={setDetails} />
-        <Card side="back" details={details} setDetails={setDetails} />
-      </div>
-      <div>
-        {complete ? (
-          <ThankYou />
-        ) : (
-          <Form
-            details={details}
-            setDetails={setDetails}
-            setComplete={setComplete}
-          />
-        )}
+    <div className="grid grid-cols-3 h-full">
+      <div
+        id="backgroundImage"
+        className="col-start-1 col-end-2 h-full bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-cover	"
+      ></div>
+      <div className="col-start-2 col-end-3">
+        <div className="cardContainer">
+          <Card side="front" details={details} setDetails={setDetails} />
+          <Card side="back" details={details} setDetails={setDetails} />
+        </div>
+        <div>
+          {complete ? (
+            <ThankYou />
+          ) : (
+            <Form
+              details={details}
+              setDetails={setDetails}
+              setComplete={setComplete}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
