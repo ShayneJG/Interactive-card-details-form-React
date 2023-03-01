@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-import errorHandler from "./components/errorHandler";
+import errorHandler from "./common/errorHandler";
 //top level component
 
 function App() {

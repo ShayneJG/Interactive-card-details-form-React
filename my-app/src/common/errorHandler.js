@@ -8,6 +8,7 @@ const errorHandler = (setError, details, error, defaultError) => {
   return errorCheck;
 };
 
+//checks card number
 const numError = (setError, error, details) => {
   const regex = /^[0-9]*$/;
   if (!regex.test(details.number)) {
@@ -15,4 +16,5 @@ const numError = (setError, error, details) => {
     return true;
   }
 };
+
 export default errorHandler;
