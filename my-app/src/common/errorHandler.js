@@ -5,46 +5,66 @@ The other functions are used by errorHandler to determine whether there are any 
 Each error function returns false if an error was found, which results in the errorHandler returning false and preventing the form submission. 
 */
 
-const errorHandler = (setError, defaultError, details) => {
-  setError(() => defaultError);
+const errorHandler = (setError, template, details, error) => {
+  setError(() => template);
   let errorReturn = true;
-  if (!errorCheck(details.number, setError, "numError")) {
-    errorReturn = false;
-  }
-  if (!errorCheck(details.month, setError, "mmError")) {
-    errorReturn = false;
-  }
-  if (!errorCheck(details.year, setError, "yyError")) {
-    errorReturn = false;
-  }
-  if (!errorCheck(details.cvc, setError, "cvcError")) {
-    errorReturn = false;
-  }
+
+  Object.keys(template).forEach((element) => {
+    if (!errorCheck(details[element], setError, element)) {
+      errorReturn = false;
+    }
+  });
+
   return errorReturn;
 };
 
 //helper functions
 
 //err is the name of the error to be set
-function errorCheck(str, setError, err) {
+function errorCheck(str, setError, element) {
   const errorMessages = {
     blank: "Can't be blank",
     format: "Wrong format, numbers only",
   };
+
+  if (element === "name") {
+    if (!str) {
+      setError((prevState) => ({
+        ...prevState,
+        name: [errorMessages.blank],
+      }));
+      return false;
+    }
+    const nameCheck = /^[a-zA-Z]*$/;
+    if (!nameCheck.test(str)) {
+      setError((prevState) => ({
+        ...prevState,
+        name: "Wrong format, must be letters only",
+      }));
+      return false;
+    }
+  }
   //is the string empty?
   if (!str) {
-    setError((prevState) => ({ ...prevState, [err]: [errorMessages.blank] }));
+    setError((prevState) => ({
+      ...prevState,
+      [element]: [errorMessages.blank],
+    }));
     return false;
   }
   //only numbers?
   const regex = /^[0-9]*$/;
 
   if (!regex.test(str)) {
-    setError((prevState) => ({ ...prevState, [err]: [errorMessages.format] }));
+    setError((prevState) => ({
+      ...prevState,
+      [element]: [errorMessages.format],
+    }));
     return false;
   }
   return true;
 }
+
 //checks whether or not the string contains only numbers. returns true if it passes the test
 
 //checks whether the string is blank.

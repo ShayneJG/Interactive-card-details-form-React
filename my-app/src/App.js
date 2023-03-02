@@ -34,6 +34,7 @@ function App() {
               details={details}
               setDetails={setDetails}
               setComplete={setComplete}
+              template={template}
             />
           )}
         </div>
@@ -43,16 +44,11 @@ function App() {
 }
 
 //main form.
-function Form({ details, setDetails, setComplete }) {
+function Form({ details, setDetails, setComplete, template }) {
   //default error object used to initialize and reset error checking.
-  const defaultError = {
-    numError: "",
-    mmError: "",
-    yyError: "",
-    cvcError: "",
-  };
+
   //form state to manage whether or not error messages display.
-  const [error, setError] = useState(defaultError);
+  const [error, setError] = useState(template);
   //
   //handler functions
   //
@@ -64,7 +60,7 @@ function Form({ details, setDetails, setComplete }) {
   const submission = (event) => {
     event.preventDefault();
 
-    if (errorHandler(setError, defaultError, details, error)) {
+    if (errorHandler(setError, template, details, error)) {
       setComplete(true);
     }
   };
@@ -80,6 +76,8 @@ function Form({ details, setDetails, setComplete }) {
           onChange={updateHandler}
           value={details.name}
         />
+        <p className={error.name ? "error" : "hidden"}>{error.name}</p>
+
         <label htmlFor="number">CARD NUMBER</label>
         <input
           id="number"
@@ -89,7 +87,7 @@ function Form({ details, setDetails, setComplete }) {
           onChange={updateHandler}
           value={details.number}
         />
-        <p className={error.numError ? "error" : "hidden"}>{error.numError}</p>
+        <p className={error.number ? "error" : "hidden"}>{error.number}</p>
 
         <label htmlFor="month">EXP. DATE (MM/YY)</label>
         <div>
@@ -112,8 +110,8 @@ function Form({ details, setDetails, setComplete }) {
             onChange={updateHandler}
             value={details.year}
           />
-          <p className={error.mmError || error.yyError ? "error" : "hidden"}>
-            {error.mmError} {error.mmError ? "" : error.yyError}
+          <p className={error.month || error.year ? "error" : "hidden"}>
+            {error.month} {error.year ? "" : error.year}
           </p>
         </div>
         <label htmlFor="cvc">CVC</label>
@@ -124,7 +122,7 @@ function Form({ details, setDetails, setComplete }) {
           onChange={updateHandler}
           value={details.cvc}
         />
-        <p className={error.cvcError ? "error" : "hidden"}>{error.cvcError}</p>
+        <p className={error.cvc ? "error" : "hidden"}>{error.cvc}</p>
 
         <button onClick={submission}>Confirm</button>
       </form>
