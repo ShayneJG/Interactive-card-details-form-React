@@ -5,32 +5,48 @@ The other functions are used by errorHandler to determine whether there are any 
 Each error function returns false if an error was found, which results in the errorHandler returning false and preventing the form submission. 
 */
 
-const errorHandler = (setError, defaultError, details, error) => {
-  setError(defaultError);
-  const errorMessages = {
-    blank: "Can't be blank",
-    format: "Wrong format, numbers only",
-  };
-
-  if (!numCheck(details.number)) {
-    setError({ ...error, numError: [errorMessages.format] });
-    return false;
+const errorHandler = (setError, defaultError, details) => {
+  setError(() => defaultError);
+  let errorReturn = true;
+  if (!errorCheck(details.number, setError, "numError")) {
+    errorReturn = false;
   }
-  if (details.number === "") {
-    setError({ ...error, numError: [errorMessages.blank] });
-    return false;
+  if (!errorCheck(details.month, setError, "mmError")) {
+    errorReturn = false;
   }
-
-  return true;
+  if (!errorCheck(details.year, setError, "yyError")) {
+    errorReturn = false;
+  }
+  if (!errorCheck(details.cvc, setError, "cvcError")) {
+    errorReturn = false;
+  }
+  return errorReturn;
 };
 
 //helper functions
 
-//checks whether or not the string contains only numbers. returns true if it passes the test
-function numCheck(str) {
+//err is the name of the error to be set
+function errorCheck(str, setError, err) {
+  const errorMessages = {
+    blank: "Can't be blank",
+    format: "Wrong format, numbers only",
+  };
+  //is the string empty?
+  if (!str) {
+    setError((prevState) => ({ ...prevState, [err]: [errorMessages.blank] }));
+    return false;
+  }
+  //only numbers?
   const regex = /^[0-9]*$/;
-  return regex.test(str);
+
+  if (!regex.test(str)) {
+    setError((prevState) => ({ ...prevState, [err]: [errorMessages.format] }));
+    return false;
+  }
+  return true;
 }
+//checks whether or not the string contains only numbers. returns true if it passes the test
+
 //checks whether the string is blank.
 
 export default errorHandler;

@@ -16,17 +16,17 @@ function App() {
   const [complete, setComplete] = useState(false);
 
   return (
-    <div className="grid grid-cols-3 h-full">
-      <div
-        id="backgroundImage"
-        className="col-start-1 col-end-2 h-full bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-cover	"
-      ></div>
-      <div className="col-start-2 col-end-3">
-        <div className="cardContainer">
-          <Card side="front" details={details} setDetails={setDetails} />
-          <Card side="back" details={details} setDetails={setDetails} />
-        </div>
-        <div>
+    <div className="h-full">
+      <div className="">
+        <Card side="front" details={details} setDetails={setDetails} />
+        <Card side="back" details={details} setDetails={setDetails} />
+      </div>
+      <div className="grid grid-cols-3 h-full">
+        <div
+          id="backgroundImage"
+          className="col-start-1 col-end-2 h-full bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-cover	"
+        ></div>
+        <div className="col-start-2 col-end-4 flex flex-col items-center justify-center">
           {complete ? (
             <ThankYou />
           ) : (
@@ -69,9 +69,9 @@ function Form({ details, setDetails, setComplete }) {
     }
   };
   return (
-    <div className="form">
-      <form>
-        <label for="name">CARDHOLDER NAME</label>
+    <div className="h-full w-full flex justify-center items-center">
+      <form className="h-1/2 w-1/2 flex flex-col">
+        <label htmlFor="name">CARDHOLDER NAME</label>
         <input
           id="name"
           name="name"
@@ -80,7 +80,7 @@ function Form({ details, setDetails, setComplete }) {
           onChange={updateHandler}
           value={details.name}
         />
-        <label for="number">CARD NUMBER</label>
+        <label htmlFor="number">CARD NUMBER</label>
         <input
           id="number"
           name="number"
@@ -90,30 +90,33 @@ function Form({ details, setDetails, setComplete }) {
           value={details.number}
         />
         <p className={error.numError ? "error" : "hidden"}>{error.numError}</p>
-        <label for="month">EXP. DATE (MM/YY)</label>
-        <input
-          id="month"
-          name="month"
-          placeholder="MM"
-          type="text"
-          onChange={updateHandler}
-          value={details.month}
-        />
-        <label for="year" className="sr-only">
-          year
-        </label>
-        <input
-          id="year"
-          name="year"
-          placeholder="YY"
-          type="text"
-          onChange={updateHandler}
-          value={details.year}
-        />
-        <p className={error.mmError || error.yyError ? "error" : "hidden"}>
-          Can't be blank
-        </p>
-        <label for="cvc">CVC</label>
+
+        <label htmlFor="month">EXP. DATE (MM/YY)</label>
+        <div>
+          <input
+            id="month"
+            name="month"
+            placeholder="MM"
+            type="text"
+            onChange={updateHandler}
+            value={details.month}
+          />
+          <label htmlFor="year" className="sr-only">
+            year
+          </label>
+          <input
+            id="year"
+            name="year"
+            placeholder="YY"
+            type="text"
+            onChange={updateHandler}
+            value={details.year}
+          />
+          <p className={error.mmError || error.yyError ? "error" : "hidden"}>
+            {error.mmError} {error.mmError ? "" : error.yyError}
+          </p>
+        </div>
+        <label htmlFor="cvc">CVC</label>
         <input
           id="cvc"
           name="cvc"
@@ -121,7 +124,7 @@ function Form({ details, setDetails, setComplete }) {
           onChange={updateHandler}
           value={details.cvc}
         />
-        <p className={error.cvcError ? "error" : "hidden"}>Can't be blank</p>
+        <p className={error.cvcError ? "error" : "hidden"}>{error.cvcError}</p>
 
         <button onClick={submission}>Confirm</button>
       </form>
