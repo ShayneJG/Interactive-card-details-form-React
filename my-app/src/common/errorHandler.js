@@ -27,6 +27,7 @@ function errorCheck(str, setError, element) {
     format: "Wrong format, numbers only",
   };
 
+  //specifically for name, as it follows different rules.
   if (element === "name") {
     if (!str) {
       setError((prevState) => ({
@@ -43,6 +44,7 @@ function errorCheck(str, setError, element) {
       }));
       return false;
     }
+    return true;
   }
   //is the string empty?
   if (!str) {
