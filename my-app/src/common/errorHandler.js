@@ -25,6 +25,7 @@ function errorCheck(str, setError, element) {
   const errorMessages = {
     blank: "Can't be blank",
     format: "Wrong format, numbers only",
+    formatword: "Wrong format, letters only",
   };
 
   //specifically for name, as it follows different rules.
@@ -40,7 +41,7 @@ function errorCheck(str, setError, element) {
     if (!nameCheck.test(str)) {
       setError((prevState) => ({
         ...prevState,
-        name: "Wrong format, must be letters only",
+        name: [errorMessages.formatword],
       }));
       return false;
     }
