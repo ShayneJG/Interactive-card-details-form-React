@@ -17,14 +17,10 @@ function App() {
 
   return (
     <div className="h-full">
-      <div className="">
-        <Card side="front" details={details} setDetails={setDetails} />
-        <Card side="back" details={details} setDetails={setDetails} />
-      </div>
-      <div className="grid grid-cols-3 h-full">
+      <div className="h-full grid grid-cols-3">
         <div
           id="backgroundImage"
-          className="col-start-1 col-end-2 h-full bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-cover	"
+          className=" h-full col-start-1 col-end-2 bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-cover	"
         ></div>
         <div className="col-start-2 col-end-4 flex flex-col items-center justify-center">
           {complete ? (
@@ -38,6 +34,12 @@ function App() {
             />
           )}
         </div>
+      </div>
+      <div></div>
+
+      <div className="">
+        <Card side="front" details={details} setDetails={setDetails} />
+        <Card side="back" details={details} setDetails={setDetails} />
       </div>
     </div>
   );
@@ -66,9 +68,10 @@ function Form({ details, setDetails, setComplete, template }) {
   };
   return (
     <div className="h-full w-full flex justify-center items-center">
-      <form className="h-1/2 w-1/2 flex flex-col">
+      <form className="h-1/2 w-25% flex flex-col">
         <label htmlFor="name">CARDHOLDER NAME</label>
         <input
+          className="border h-8 rounded-lg border-gray-200 mb-5 "
           id="name"
           name="name"
           placeholder="e.g. Jane Appleseed"
