@@ -16,30 +16,22 @@ function App() {
   const [complete, setComplete] = useState(false);
 
   return (
-    <div className="h-full">
-      <div className="h-full grid grid-cols-3">
-        <div
-          id="backgroundImage"
-          className=" h-full col-start-1 col-end-2 bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-cover	"
-        ></div>
-        <div className="col-start-2 col-end-4 flex flex-col items-center justify-center">
-          {complete ? (
-            <ThankYou />
-          ) : (
-            <Form
-              details={details}
-              setDetails={setDetails}
-              setComplete={setComplete}
-              template={template}
-            />
-          )}
-        </div>
-      </div>
-      <div></div>
-
-      <div className="">
+    <div className="h-full bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-contain flex">
+      <div className="h-full w-1/2">
         <Card side="front" details={details} setDetails={setDetails} />
         <Card side="back" details={details} setDetails={setDetails} />
+      </div>
+      <div className="h-full w-1/2 flex flex-col items-center justify-center">
+        {complete ? (
+          <ThankYou />
+        ) : (
+          <Form
+            details={details}
+            setDetails={setDetails}
+            setComplete={setComplete}
+            template={template}
+          />
+        )}
       </div>
     </div>
   );
@@ -135,7 +127,15 @@ function Form({ details, setDetails, setComplete, template }) {
 
 //component for the cards. Will show back or front based on what side prop is passed.
 function Card({ side, details, setDetails }) {
-  return <div></div>;
+  //front side of card
+  if (side === "front") {
+    return (
+      <div className="bg-[url('./images/bg-card-front.png')] bg-no-repeat bg-contain"></div>
+    );
+  }
+  if (side === "back") {
+    return <div></div>;
+  }
 }
 
 //successful submission component
