@@ -628,6 +628,11 @@ video {
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
+.border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
+}
+
 .bg-\[url\(\'\.\/images\/bg-card-front\.png\'\)\] {
   background-image: url('./images/bg-card-front.png');
 }
@@ -642,4 +647,45 @@ video {
 
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+
+.font-display {
+  font-family: Space Grotesk;
+}
+
+.outline-none {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+p,
+label {
+  font-size: 12px;
+}
+
+p {
+  color: red;
+}
+
+label {
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.hover\:border-\[\#6448FE\]:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(100 72 254 / var(--tw-border-opacity));
+}
+
+.focus\:border-\[\#600594\]:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(96 5 148 / var(--tw-border-opacity));
+}
+
+.active\:rounded-lg:active {
+  border-radius: 0.5rem;
+}
+
+.active\:border:active {
+  border-width: 1px;
 }

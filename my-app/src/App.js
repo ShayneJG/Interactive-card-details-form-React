@@ -59,11 +59,13 @@ function Form({ details, setDetails, setComplete, template }) {
     }
   };
   return (
-    <div className="h-full w-full flex justify-center items-center">
+    <div className="h-full w-full flex justify-center items-center font-display">
       <form className="h-1/2 w-25% flex flex-col">
         <label htmlFor="name">CARDHOLDER NAME</label>
         <input
-          className="border h-8 rounded-lg border-gray-200 mb-5 "
+          className={`border h-8 rounded-lg border-gray-200 mb-5 focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+            error.name ? "border-red-500" : ""
+          }`}
           id="name"
           name="name"
           placeholder="e.g. Jane Appleseed"
@@ -83,41 +85,47 @@ function Form({ details, setDetails, setComplete, template }) {
           value={details.number}
         />
         <p className={error.number ? "error" : "hidden"}>{error.number}</p>
-
-        <label htmlFor="month">EXP. DATE (MM/YY)</label>
-        <div>
-          <input
-            id="month"
-            name="month"
-            placeholder="MM"
-            type="text"
-            onChange={updateHandler}
-            value={details.month}
-          />
-          <label htmlFor="year" className="sr-only">
-            year
-          </label>
-          <input
-            id="year"
-            name="year"
-            placeholder="YY"
-            type="text"
-            onChange={updateHandler}
-            value={details.year}
-          />
-          <p className={error.month || error.year ? "error" : "hidden"}>
-            {error.month} {error.year ? "" : error.year}
-          </p>
+        <div className="flex">
+          <div className="flex flex-col">
+            <label htmlFor="month">EXP. DATE (MM/YY)</label>
+            <div>
+              <input
+                id="m"
+                name="month"
+                placeholder="MM"
+                type="text"
+                onChange={updateHandler}
+                value={details.month}
+              />
+              <label htmlFor="year" className="sr-only">
+                year
+              </label>
+              <input
+                id="y"
+                name="year"
+                placeholder="YY"
+                type="text"
+                onChange={updateHandler}
+                value={details.year}
+              />
+            </div>
+            <p className={error.month || error.year ? "error" : "hidden"}>
+              {error.month} {error.year ? "" : error.year}
+            </p>
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="cvc">CVC</label>
+            <input
+              id="cvc"
+              name="cvc"
+              placeholder="e.g. 123"
+              onChange={updateHandler}
+              value={details.cvc}
+              className="border h-8 rounded-lg border-gray-200 mb-5 active:border active:rounded-lg "
+            />
+            <p className={error.cvc ? "error" : "hidden"}>{error.cvc}</p>
+          </div>
         </div>
-        <label htmlFor="cvc">CVC</label>
-        <input
-          id="cvc"
-          name="cvc"
-          placeholder="e.g. 123"
-          onChange={updateHandler}
-          value={details.cvc}
-        />
-        <p className={error.cvc ? "error" : "hidden"}>{error.cvc}</p>
 
         <button onClick={submission}>Confirm</button>
       </form>

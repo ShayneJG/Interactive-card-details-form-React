@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+p,
+label {
+  font-size: 12px;
+}
+
+p {
+  color: red;
+}
+
+label {
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
