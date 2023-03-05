@@ -60,10 +60,10 @@ function Form({ details, setDetails, setComplete, template }) {
   };
   return (
     <div className="h-full w-full flex justify-center items-center font-display">
-      <form className="h-1/2 w-25% flex flex-col">
+      <form className="w-1/2 flex flex-col">
         <label htmlFor="name">CARDHOLDER NAME</label>
         <input
-          className={`border h-8 rounded-lg border-gray-200 mb-5 focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+          className={`border h-10 align-middle p-2 rounded-lg border-gray-200 focus:border-[#600594] hover:border-[#6448FE] outline-none ${
             error.name ? "border-red-500" : ""
           }`}
           id="name"
@@ -77,6 +77,9 @@ function Form({ details, setDetails, setComplete, template }) {
 
         <label htmlFor="number">CARD NUMBER</label>
         <input
+          className={`border h-10 align-middle p-2 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+            error.number ? "border-red-500" : ""
+          }`}
           id="number"
           name="number"
           placeholder="e.g. 1234 5678 9123 0000"
@@ -86,7 +89,7 @@ function Form({ details, setDetails, setComplete, template }) {
         />
         <p className={error.number ? "error" : "hidden"}>{error.number}</p>
         <div className="flex">
-          <div className="flex flex-col">
+          <div id="expDate" className="flex flex-col w-1/2">
             <label htmlFor="month">EXP. DATE (MM/YY)</label>
             <div>
               <input
@@ -96,11 +99,17 @@ function Form({ details, setDetails, setComplete, template }) {
                 type="text"
                 onChange={updateHandler}
                 value={details.month}
+                className={`border h-10 align-middle mr-2 p-2 w-20 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+                  error.month ? "border-red-500" : ""
+                }`}
               />
               <label htmlFor="year" className="sr-only">
                 year
               </label>
               <input
+                className={`border h-10 align-middle p-2 w-20 mr-2 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+                  error.year ? "border-red-500" : ""
+                }`}
                 id="y"
                 name="year"
                 placeholder="YY"
@@ -113,21 +122,25 @@ function Form({ details, setDetails, setComplete, template }) {
               {error.month} {error.year ? "" : error.year}
             </p>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col w-1/2">
             <label htmlFor="cvc">CVC</label>
             <input
+              className={`border h-10 align-middle p-2 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+                error.cvc ? "border-red-500" : ""
+              }`}
               id="cvc"
               name="cvc"
               placeholder="e.g. 123"
               onChange={updateHandler}
               value={details.cvc}
-              className="border h-8 rounded-lg border-gray-200 mb-5 active:border active:rounded-lg "
             />
             <p className={error.cvc ? "error" : "hidden"}>{error.cvc}</p>
           </div>
         </div>
 
-        <button onClick={submission}>Confirm</button>
+        <button className="h-12" onClick={submission}>
+          Confirm
+        </button>
       </form>
     </div>
   );

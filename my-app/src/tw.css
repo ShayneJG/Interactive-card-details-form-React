@@ -5,13 +5,29 @@
 p,
 label {
   font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  margin-bottom: 5px;
 }
 
 p {
   color: red;
+  position: relative;
+  height: 0;
 }
 
 label {
   margin-bottom: 5px;
   letter-spacing: 1px;
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 30px;
+  color: hsl(270, 3%, 87%);
+  background-color: hsl(278, 68%, 11%);
+  border-radius: 5px;
 }
