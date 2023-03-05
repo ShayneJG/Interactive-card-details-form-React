@@ -86,6 +86,7 @@ function Form({ details, setDetails, setComplete, template }) {
           type="text"
           onChange={updateHandler}
           value={details.number}
+          maxLength="16"
         />
         <p className={error.number ? "error" : "hidden"}>{error.number}</p>
         <div className="flex">
@@ -102,6 +103,7 @@ function Form({ details, setDetails, setComplete, template }) {
                 className={`border h-10 align-middle mr-2 p-2 w-20 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
                   error.month ? "border-red-500" : ""
                 }`}
+                maxLength="2"
               />
               <label htmlFor="year" className="sr-only">
                 year
@@ -116,6 +118,7 @@ function Form({ details, setDetails, setComplete, template }) {
                 type="text"
                 onChange={updateHandler}
                 value={details.year}
+                maxLength="2"
               />
             </div>
             <p className={error.month || error.year ? "error" : "hidden"}>
@@ -133,6 +136,7 @@ function Form({ details, setDetails, setComplete, template }) {
               placeholder="e.g. 123"
               onChange={updateHandler}
               value={details.cvc}
+              maxLength="3"
             />
             <p className={error.cvc ? "error" : "hidden"}>{error.cvc}</p>
           </div>
