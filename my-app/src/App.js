@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import errorHandler from "./common/errorHandler";
 import cardLogo from "./images/card-logo.svg";
+import iconComplete from "./images/icon-complete.svg";
 
 //top level component
 
@@ -15,16 +16,19 @@ function App() {
   };
   const [details, setDetails] = useState(template);
   const [complete, setComplete] = useState(false);
-
+  //set details back to default. Done to avoid having to pass down setDetails and template
+  function reset() {
+    setDetails(template);
+  }
   return (
     <div className="h-full grid grid-cols-3 font-display">
-      <div className="h-full relative col-start-1 col-end-2 flex flex-col items-center bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-cover justify-center">
+      <div className="h-full  col-start-1 col-end-2 flex flex-col items-center bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-cover justify-center">
         <Card side="front" details={details} setDetails={setDetails} />
         <Card side="back" details={details} setDetails={setDetails} />
       </div>
-      <div className="h-full col-start-2 col-end-4 flex flex-col items-center justify-center">
+      <div className="h-full w-full col-start-2 col-end-4 flex flex-col items-center justify-center">
         {complete ? (
-          <ThankYou />
+          <ThankYou setComplete={setComplete} reset={reset} />
         ) : (
           <Form
             details={details}
@@ -60,94 +64,92 @@ function Form({ details, setDetails, setComplete, template }) {
     }
   };
   return (
-    <div className="h-full w-full flex justify-center items-center">
-      <form className="w-2/5 flex flex-col">
-        <label htmlFor="name">CARDHOLDER NAME</label>
-        <input
-          className={`border h-10 align-middle p-2 rounded-lg border-gray-200 focus:border-[#600594] hover:border-[#6448FE] outline-none ${
-            error.name ? "border-red-500" : ""
-          }`}
-          id="name"
-          name="name"
-          placeholder="e.g. Jane Appleseed"
-          type="text"
-          onChange={updateHandler}
-          value={details.name}
-        />
-        <p className={error.name ? "error" : "hidden"}>{error.name}</p>
+    <form className="w-2/5 flex flex-col">
+      <label htmlFor="name">CARDHOLDER NAME</label>
+      <input
+        className={`border h-10 align-middle p-2 rounded-lg border-gray-200 focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+          error.name ? "border-red-500" : ""
+        }`}
+        id="name"
+        name="name"
+        placeholder="e.g. Jane Appleseed"
+        type="text"
+        onChange={updateHandler}
+        value={details.name}
+      />
+      <p className={error.name ? "error" : "hidden"}>{error.name}</p>
 
-        <label htmlFor="number">CARD NUMBER</label>
-        <input
-          className={`border h-10 align-middle p-2 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
-            error.number ? "border-red-500" : ""
-          }`}
-          id="number"
-          name="number"
-          placeholder="e.g. 1234 5678 9123 0000"
-          type="text"
-          onChange={updateHandler}
-          value={details.number}
-          maxLength="16"
-        />
-        <p className={error.number ? "error" : "hidden"}>{error.number}</p>
-        <div className="flex">
-          <div id="expDate" className="flex flex-col w-1/2">
-            <label htmlFor="month">EXP. DATE (MM/YY)</label>
-            <div>
-              <input
-                id="m"
-                name="month"
-                placeholder="MM"
-                type="text"
-                onChange={updateHandler}
-                value={details.month}
-                className={`border h-10 align-middle mr-2 p-2 w-2/5 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
-                  error.month ? "border-red-500" : ""
-                }`}
-                maxLength="2"
-              />
-              <label htmlFor="year" className="sr-only">
-                year
-              </label>
-              <input
-                className={`border h-10 align-middle p-2 w-2/5 mr-2 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
-                  error.year ? "border-red-500" : ""
-                }`}
-                id="y"
-                name="year"
-                placeholder="YY"
-                type="text"
-                onChange={updateHandler}
-                value={details.year}
-                maxLength="2"
-              />
-            </div>
-            <p className={error.month || error.year ? "error" : "hidden"}>
-              {error.month} {error.year ? "" : error.year}
-            </p>
-          </div>
-          <div className="flex flex-col w-1/2">
-            <label htmlFor="cvc">CVC</label>
+      <label htmlFor="number">CARD NUMBER</label>
+      <input
+        className={`border h-10 align-middle p-2 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+          error.number ? "border-red-500" : ""
+        }`}
+        id="number"
+        name="number"
+        placeholder="e.g. 1234 5678 9123 0000"
+        type="text"
+        onChange={updateHandler}
+        value={details.number}
+        maxLength="16"
+      />
+      <p className={error.number ? "error" : "hidden"}>{error.number}</p>
+      <div className="flex">
+        <div id="expDate" className="flex flex-col w-1/2">
+          <label htmlFor="month">EXP. DATE (MM/YY)</label>
+          <div>
             <input
-              className={`border h-10 align-middle p-2 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
-                error.cvc ? "border-red-500" : ""
-              }`}
-              id="cvc"
-              name="cvc"
-              placeholder="e.g. 123"
+              id="m"
+              name="month"
+              placeholder="MM"
+              type="text"
               onChange={updateHandler}
-              value={details.cvc}
-              maxLength="3"
+              value={details.month}
+              className={`border h-10 align-middle mr-2 p-2 w-2/5 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+                error.month ? "border-red-500" : ""
+              }`}
+              maxLength="2"
             />
-            <p className={error.cvc ? "error" : "hidden"}>{error.cvc}</p>
+            <label htmlFor="year" className="sr-only">
+              year
+            </label>
+            <input
+              className={`border h-10 align-middle p-2 w-2/5 mr-2 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+                error.year ? "border-red-500" : ""
+              }`}
+              id="y"
+              name="year"
+              placeholder="YY"
+              type="text"
+              onChange={updateHandler}
+              value={details.year}
+              maxLength="2"
+            />
           </div>
+          <p className={error.month || error.year ? "error" : "hidden"}>
+            {error.month} {error.year ? "" : error.year}
+          </p>
         </div>
+        <div className="flex flex-col w-1/2">
+          <label htmlFor="cvc">CVC</label>
+          <input
+            className={`border h-10 align-middle p-2 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+              error.cvc ? "border-red-500" : ""
+            }`}
+            id="cvc"
+            name="cvc"
+            placeholder="e.g. 123"
+            onChange={updateHandler}
+            value={details.cvc}
+            maxLength="3"
+          />
+          <p className={error.cvc ? "error" : "hidden"}>{error.cvc}</p>
+        </div>
+      </div>
 
-        <button className="h-12" onClick={submission}>
-          Confirm
-        </button>
-      </form>
-    </div>
+      <button className="h-12" onClick={submission}>
+        Confirm
+      </button>
+    </form>
   );
 }
 
@@ -191,6 +193,23 @@ function Card({ side, details, setDetails }) {
 }
 
 //successful submission component
-function ThankYou() {}
+function ThankYou({ setComplete, reset }) {
+  return (
+    <div className="flex flex-col items-center justify-center w-1/3">
+      <img src={iconComplete} className="h-20 w-20 m-8"></img>
+      <h1 className="text-2xl	tracking-widest	font-medium mb-3">THANK YOU!</h1>
+      <span className="text-slate-500 ">We've added your card details</span>
+      <button
+        className="w-full h-12"
+        onClick={() => {
+          setComplete(false);
+          reset();
+        }}
+      >
+        Continue
+      </button>
+    </div>
+  );
+}
 
 export default App;
