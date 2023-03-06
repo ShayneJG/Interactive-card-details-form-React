@@ -37,7 +37,7 @@ function errorCheck(str, setError, element) {
       }));
       return false;
     }
-    const nameCheck = /^[a-zA-Z]*$/;
+    const nameCheck = /^[a-zA-Z ]*$/;
     if (!nameCheck.test(str)) {
       setError((prevState) => ({
         ...prevState,
@@ -56,7 +56,7 @@ function errorCheck(str, setError, element) {
     return false;
   }
   //only numbers?
-  const regex = /^[0-9]*$/;
+  const regex = /^[0-9 ]*$/;
 
   if (!regex.test(str)) {
     setError((prevState) => ({
