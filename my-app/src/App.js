@@ -17,12 +17,12 @@ function App() {
   const [complete, setComplete] = useState(false);
 
   return (
-    <div className="h-full bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-contain flex font-display">
-      <div className="h-full w-1/2 flex flex-col items-center justify-center">
+    <div className="h-full grid grid-cols-3 font-display">
+      <div className="h-full relative col-start-1 col-end-2 flex flex-col items-center bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-cover justify-center">
         <Card side="front" details={details} setDetails={setDetails} />
         <Card side="back" details={details} setDetails={setDetails} />
       </div>
-      <div className="h-full w-1/2 flex flex-col items-center justify-center">
+      <div className="h-full col-start-2 col-end-4 flex flex-col items-center justify-center">
         {complete ? (
           <ThankYou />
         ) : (
@@ -158,7 +158,7 @@ function Card({ side, details, setDetails }) {
     return (
       <div
         id="cardFront"
-        className="bg-[url('./images/bg-card-front.png')] bg-no-repeat bg-cover card pl-8 pt-6 pr-6 lg:mb-10 lg:relative lg:left-24 drop-shadow-2xl"
+        className="lg:ml-[26vw] bg-[url('./images/bg-card-front.png')] bg-no-repeat bg-cover card pl-8 pt-6 pr-6 lg:mb-10  drop-shadow-2xl"
       >
         <img src={cardLogo} alt="cardLogo" className="mb-16"></img>
         <div id="cardNumberFront" className="cardNumber mb-5">
@@ -180,7 +180,7 @@ function Card({ side, details, setDetails }) {
     return (
       <div
         id="cardBack"
-        className="bg-[url('./images/bg-card-back.png')] bg-no-repeat bg-cover card lg:relative lg:left-48 drop-shadow-2xl"
+        className="lg:ml-[35vw] bg-[url('./images/bg-card-back.png')] bg-no-repeat bg-cover card  drop-shadow-2xl"
       >
         <span className="cvc cardName">
           {details.cvc ? details.cvc : "000"}
