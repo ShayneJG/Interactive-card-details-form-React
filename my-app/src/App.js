@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className="h-full bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-contain flex font-display">
-      <div className="h-full w-1/2">
+      <div className="h-full w-1/2 flex flex-col items-center justify-center">
         <Card side="front" details={details} setDetails={setDetails} />
         <Card side="back" details={details} setDetails={setDetails} />
       </div>
@@ -61,7 +61,7 @@ function Form({ details, setDetails, setComplete, template }) {
   };
   return (
     <div className="h-full w-full flex justify-center items-center">
-      <form className="w-1/2 flex flex-col">
+      <form className="w-2/5 flex flex-col">
         <label htmlFor="name">CARDHOLDER NAME</label>
         <input
           className={`border h-10 align-middle p-2 rounded-lg border-gray-200 focus:border-[#600594] hover:border-[#6448FE] outline-none ${
@@ -101,7 +101,7 @@ function Form({ details, setDetails, setComplete, template }) {
                 type="text"
                 onChange={updateHandler}
                 value={details.month}
-                className={`border h-10 align-middle mr-2 p-2 w-20 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+                className={`border h-10 align-middle mr-2 p-2 w-2/5 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
                   error.month ? "border-red-500" : ""
                 }`}
                 maxLength="2"
@@ -110,7 +110,7 @@ function Form({ details, setDetails, setComplete, template }) {
                 year
               </label>
               <input
-                className={`border h-10 align-middle p-2 w-20 mr-2 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
+                className={`border h-10 align-middle p-2 w-2/5 mr-2 rounded-lg border-gray-200  focus:border-[#600594] hover:border-[#6448FE] outline-none ${
                   error.year ? "border-red-500" : ""
                 }`}
                 id="y"
@@ -158,7 +158,7 @@ function Card({ side, details, setDetails }) {
     return (
       <div
         id="cardFront"
-        className="bg-[url('./images/bg-card-front.png')] bg-no-repeat bg-cover card pl-8 pt-6 pr-6"
+        className="bg-[url('./images/bg-card-front.png')] bg-no-repeat bg-cover card pl-8 pt-6 pr-6 lg:mb-10 lg:relative lg:left-24 drop-shadow-2xl"
       >
         <img src={cardLogo} alt="cardLogo" className="mb-16"></img>
         <div id="cardNumberFront" className="cardNumber mb-5">
@@ -177,7 +177,16 @@ function Card({ side, details, setDetails }) {
     );
   }
   if (side === "back") {
-    return <div></div>;
+    return (
+      <div
+        id="cardBack"
+        className="bg-[url('./images/bg-card-back.png')] bg-no-repeat bg-cover card lg:relative lg:left-48 drop-shadow-2xl"
+      >
+        <span className="cvc cardName">
+          {details.cvc ? details.cvc : "000"}
+        </span>
+      </div>
+    );
   }
 }
 

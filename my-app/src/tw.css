@@ -51,8 +51,14 @@ button {
 }
 
 .cardName {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 2px;
   color: white;
   font-weight: 300;
+}
+
+.cvc {
+  position: relative;
+  left: 355px;
+  top: 109px;
 }
