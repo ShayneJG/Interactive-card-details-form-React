@@ -571,8 +571,16 @@ video {
   border-width: 0;
 }
 
+.mb-16 {
+  margin-bottom: 4rem;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem;
 }
 
 .flex {
@@ -619,6 +627,10 @@ video {
   justify-content: center;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -649,12 +661,28 @@ video {
   background-size: contain;
 }
 
+.bg-cover {
+  background-size: cover;
+}
+
 .bg-no-repeat {
   background-repeat: no-repeat;
 }
 
 .p-2 {
   padding: 0.5rem;
+}
+
+.pl-8 {
+  padding-left: 2rem;
+}
+
+.pt-6 {
+  padding-top: 1.5rem;
+}
+
+.pr-6 {
+  padding-right: 1.5rem;
 }
 
 .align-middle {
@@ -698,6 +726,31 @@ button {
   color: hsl(270, 3%, 87%);
   background-color: hsl(278, 68%, 11%);
   border-radius: 5px;
+}
+
+.card {
+  height: 245px;
+  width: 447px;
+  border-radius: 5px;
+}
+
+.logo {
+  width: 84px;
+  height: 47px;
+}
+
+.cardNumber {
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: white;
+}
+
+.cardName {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: white;
+  font-weight: 300;
 }
 
 .hover\:border-\[\#6448FE\]:hover {

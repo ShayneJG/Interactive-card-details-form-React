@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import errorHandler from "./common/errorHandler";
+import cardLogo from "./images/card-logo.svg";
 
 //top level component
 
@@ -16,7 +17,7 @@ function App() {
   const [complete, setComplete] = useState(false);
 
   return (
-    <div className="h-full bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-contain flex">
+    <div className="h-full bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-contain flex font-display">
       <div className="h-full w-1/2">
         <Card side="front" details={details} setDetails={setDetails} />
         <Card side="back" details={details} setDetails={setDetails} />
@@ -59,7 +60,7 @@ function Form({ details, setDetails, setComplete, template }) {
     }
   };
   return (
-    <div className="h-full w-full flex justify-center items-center font-display">
+    <div className="h-full w-full flex justify-center items-center">
       <form className="w-1/2 flex flex-col">
         <label htmlFor="name">CARDHOLDER NAME</label>
         <input
@@ -155,7 +156,24 @@ function Card({ side, details, setDetails }) {
   //front side of card
   if (side === "front") {
     return (
-      <div className="bg-[url('./images/bg-card-front.png')] bg-no-repeat bg-contain"></div>
+      <div
+        id="cardFront"
+        className="bg-[url('./images/bg-card-front.png')] bg-no-repeat bg-cover card pl-8 pt-6 pr-6"
+      >
+        <img src={cardLogo} alt="cardLogo" className="mb-16"></img>
+        <div id="cardNumberFront" className="cardNumber mb-5">
+          {details.number ? details.number : "0000 0000 0000 0000"}
+        </div>
+        <div id="bottomRow" className="flex justify-between">
+          <span className="cardName">
+            {details.name ? details.name.toUpperCase() : "JANE APPLESEED"}
+          </span>
+          <span className="cardName">
+            {details.month ? details.month : "00"}/
+            {details.year ? details.year : "00"}
+          </span>
+        </div>
+      </div>
     );
   }
   if (side === "back") {
