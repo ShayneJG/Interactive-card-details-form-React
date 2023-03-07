@@ -52,7 +52,14 @@ function Form({ details, setDetails, setComplete, template }) {
   //handler functions
   //
   const updateHandler = (event) => {
-    const { name, value } = event.target;
+    const name = event.target.name;
+    let value = event.target.value;
+    if (name === "number") {
+      value = event.target.value
+        .replace(/[^0-9]/gi, "")
+        .replace(/(.{4})/g, "$1 ")
+        .trim();
+    }
     setDetails({ ...details, [name]: value });
   };
 
@@ -90,7 +97,7 @@ function Form({ details, setDetails, setComplete, template }) {
         type="text"
         onChange={updateHandler}
         value={details.number}
-        maxLength="16"
+        maxLength="19"
       />
       <p className={error.number ? "error" : "hidden"}>{error.number}</p>
       <div className="flex">
@@ -160,7 +167,7 @@ function Card({ side, details }) {
     return (
       <div
         id="cardFront"
-        className="w-[275px] absolute left-5 -bottom-10 md:static h-[150px] z-50 sm:h-[245px] sm:w-[447px]  rounded-md		 md:ml-[15vw] lg:ml-[26vw] bg-[url('./images/bg-card-front.png')] bg-no-repeat bg-cover pl-6 md:pl-8 pt-6 pr-6 lg:mb-10  drop-shadow-2xl"
+        className="w-[275px] h-[150px] absolute left-5 -bottom-10 md:static  z-50 sm:h-[245px] sm:w-[447px]  rounded-md		 md:ml-[15vw] lg:ml-[26vw] bg-[url('./images/bg-card-front.png')] bg-no-repeat bg-cover pl-6 md:pl-8 pt-6 pr-6 lg:mb-10  drop-shadow-2xl"
       >
         <img
           src={cardLogo}
@@ -169,15 +176,15 @@ function Card({ side, details }) {
         ></img>
         <div
           id="cardNumberFront"
-          className="font-medium text-white tracking-[2px] text-[17px] md:text-[27px] mb-2	md:mb-5"
+          className="font-medium text-white  tracking-[3px] text-[15px] md:text-[27px] mb-2	md:mb-5"
         >
           {details.number ? details.number : "0000 0000 0000 0000"}
         </div>
         <div id="bottomRow" className="flex justify-between">
-          <span className="font-extralight	 text-white tracking-[2px] text-[8px] md:text-[13px]">
+          <span className="font-light text-white tracking-[2px] text-[8px] md:text-[13px]">
             {details.name ? details.name.toUpperCase() : "JANE APPLESEED"}
           </span>
-          <span className="font-extralight	 text-white tracking-[2px] text-[8px] md:text-[13px]">
+          <span className="font-light	 text-white tracking-[2px] text-[8px] md:text-[13px]">
             {details.month ? details.month : "00"}/
             {details.year ? details.year : "00"}
           </span>
@@ -189,9 +196,9 @@ function Card({ side, details }) {
     return (
       <div
         id="cardBack"
-        className="w-[250px] h-[140px] absolute top-7 right-5 md:static sm:h-[245px] sm:w-[447px] rounded-md md:ml-[20vw] lg:ml-[35vw] bg-[url('./images/bg-card-back.png')] bg-no-repeat bg-cover  drop-shadow-2xl"
+        className="w-[275px] h-[150px] absolute top-7 right-5 md:static sm:h-[245px] sm:w-[447px] rounded-md md:ml-[20vw] lg:ml-[35vw] bg-[url('./images/bg-card-back.png')] bg-no-repeat bg-cover  drop-shadow-2xl"
       >
-        <span className="font-extralight	relative left-[200px] text-[9px] top-[55px] md:left-[355px] md:top-[109px] text-white tracking-[2px] md:text-[13px]">
+        <span className="font-extralight	relative left-[220px]  top-[60px] md:left-[355px] md:top-[109px] text-[9px] text-white tracking-[2px] md:text-[13px]">
           {details.cvc ? details.cvc : "000"}
         </span>
       </div>
@@ -202,7 +209,7 @@ function Card({ side, details }) {
 //successful submission component
 function ThankYou({ setComplete, reset }) {
   return (
-    <div className="flex flex-col items-center justify-center w-1/3">
+    <div className="flex flex-col items-center justify-center p-5 mt-10 md:p-0 w-full md:w-1/3">
       <img src={iconComplete} className="h-20 w-20 m-8" alt="card icon"></img>
       <h1 className="text-2xl	tracking-[2px]	font-medium mb-3">THANK YOU!</h1>
       <span className="text-slate-500 ">We've added your card details</span>
