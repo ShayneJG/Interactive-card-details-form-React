@@ -196,7 +196,7 @@ function Card({ side, details, setDetails }) {
 function ThankYou({ setComplete, reset }) {
   return (
     <div className="flex flex-col items-center justify-center w-1/3">
-      <img src={iconComplete} className="h-20 w-20 m-8"></img>
+      <img src={iconComplete} className="h-20 w-20 m-8" alt="card icon"></img>
       <h1 className="text-2xl	tracking-widest	font-medium mb-3">THANK YOU!</h1>
       <span className="text-slate-500 ">We've added your card details</span>
       <button
