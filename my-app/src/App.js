@@ -21,12 +21,12 @@ function App() {
     setDetails(template);
   }
   return (
-    <div className="h-full grid grid-cols-3 font-display">
-      <div className="h-full  col-start-1 col-end-2 flex flex-col items-center bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-cover justify-center">
-        <Card side="front" details={details} setDetails={setDetails} />
-        <Card side="back" details={details} setDetails={setDetails} />
+    <div className="h-full w-full  md:grid md:grid-cols-3 font-display">
+      <div className="h-1/3 md:h-full relative md:col-start-1 md:col-end-2  flex md:flex-col flex-col-reverse items-center bg-[url('./images/bg-main-mobile.png')] md:bg-[url('./images/bg-main-desktop.png')] bg-no-repeat bg-cover justify-center">
+        <Card side="front" details={details} />
+        <Card side="back" details={details} />
       </div>
-      <div className="h-full w-full col-start-2 col-end-4 flex flex-col items-center justify-center">
+      <div className="md:h-full w-full  md:col-start-2 md:pl-[10vw] lg:pl-0 md:col-end-4 flex flex-col items-center justify-center">
         {complete ? (
           <ThankYou setComplete={setComplete} reset={reset} />
         ) : (
@@ -64,7 +64,7 @@ function Form({ details, setDetails, setComplete, template }) {
     }
   };
   return (
-    <form className="w-2/5 flex flex-col">
+    <form className="md:w-2/5 w-full mt-14 md:mt-0 p-5 md:p-0 flex flex-col">
       <label htmlFor="name">CARDHOLDER NAME</label>
       <input
         className={`border h-10 align-middle p-2 rounded-lg border-gray-200 focus:border-[#600594] hover:border-[#6448FE] outline-none ${
@@ -154,23 +154,30 @@ function Form({ details, setDetails, setComplete, template }) {
 }
 
 //component for the cards. Will show back or front based on what side prop is passed.
-function Card({ side, details, setDetails }) {
+function Card({ side, details }) {
   //front side of card
   if (side === "front") {
     return (
       <div
         id="cardFront"
-        className="lg:ml-[26vw] bg-[url('./images/bg-card-front.png')] bg-no-repeat bg-cover card pl-8 pt-6 pr-6 lg:mb-10  drop-shadow-2xl"
+        className="w-[275px] absolute left-5 -bottom-10 md:static h-[150px] z-50 sm:h-[245px] sm:w-[447px]  rounded-md		 md:ml-[15vw] lg:ml-[26vw] bg-[url('./images/bg-card-front.png')] bg-no-repeat bg-cover pl-6 md:pl-8 pt-6 pr-6 lg:mb-10  drop-shadow-2xl"
       >
-        <img src={cardLogo} alt="cardLogo" className="mb-16"></img>
-        <div id="cardNumberFront" className="cardNumber mb-5">
+        <img
+          src={cardLogo}
+          alt="cardLogo"
+          className="w-11 md:w-[84px] md:h-[47px] mb-8 md:mb-16"
+        ></img>
+        <div
+          id="cardNumberFront"
+          className="font-medium text-white tracking-[2px] text-[17px] md:text-[27px] mb-2	md:mb-5"
+        >
           {details.number ? details.number : "0000 0000 0000 0000"}
         </div>
         <div id="bottomRow" className="flex justify-between">
-          <span className="cardName">
+          <span className="font-extralight	 text-white tracking-[2px] text-[8px] md:text-[13px]">
             {details.name ? details.name.toUpperCase() : "JANE APPLESEED"}
           </span>
-          <span className="cardName">
+          <span className="font-extralight	 text-white tracking-[2px] text-[8px] md:text-[13px]">
             {details.month ? details.month : "00"}/
             {details.year ? details.year : "00"}
           </span>
@@ -182,9 +189,9 @@ function Card({ side, details, setDetails }) {
     return (
       <div
         id="cardBack"
-        className="lg:ml-[35vw] bg-[url('./images/bg-card-back.png')] bg-no-repeat bg-cover card  drop-shadow-2xl"
+        className="w-[250px] h-[140px] absolute top-7 right-5 md:static sm:h-[245px] sm:w-[447px] rounded-md md:ml-[20vw] lg:ml-[35vw] bg-[url('./images/bg-card-back.png')] bg-no-repeat bg-cover  drop-shadow-2xl"
       >
-        <span className="cvc cardName">
+        <span className="font-extralight	relative left-[200px] text-[9px] top-[55px] md:left-[355px] md:top-[109px] text-white tracking-[2px] md:text-[13px]">
           {details.cvc ? details.cvc : "000"}
         </span>
       </div>
@@ -197,7 +204,7 @@ function ThankYou({ setComplete, reset }) {
   return (
     <div className="flex flex-col items-center justify-center w-1/3">
       <img src={iconComplete} className="h-20 w-20 m-8" alt="card icon"></img>
-      <h1 className="text-2xl	tracking-widest	font-medium mb-3">THANK YOU!</h1>
+      <h1 className="text-2xl	tracking-[2px]	font-medium mb-3">THANK YOU!</h1>
       <span className="text-slate-500 ">We've added your card details</span>
       <button
         className="w-full h-12"
