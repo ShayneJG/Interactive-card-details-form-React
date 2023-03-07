@@ -71,7 +71,7 @@ function Form({ details, setDetails, setComplete, template }) {
     }
   };
   return (
-    <form className="md:w-1/3 w-full mt-14 md:mt-0 p-5 md:p-0 flex flex-col">
+    <form className="md:w-1/2 lg:w-1/3 w-full mt-14 md:mt-0 p-5 md:p-0 flex flex-col">
       <label htmlFor="name">CARDHOLDER NAME</label>
       <input
         className={`border h-10 align-middle p-2 rounded-lg border-gray-200 focus:border-[#600594] hover:border-[#6448FE] outline-none ${
